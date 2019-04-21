@@ -12,6 +12,9 @@
 		E404BDCC226CAB4D00CA181C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCA226CAB4D00CA181C /* Main.storyboard */; };
 		E404BDCE226CAB5000CA181C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCD226CAB5000CA181C /* Assets.xcassets */; };
 		E404BDD1226CAB5000CA181C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCF226CAB5000CA181C /* LaunchScreen.storyboard */; };
+		E404BDDD226CAC2200CA181C /* Regisrtation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDDC226CAC2200CA181C /* Regisrtation.swift */; };
+		E404BDDF226CB57C00CA181C /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDDE226CB57C00CA181C /* RoomType.swift */; };
+		E404BDE1226CD65200CA181C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E404BDE0226CD65100CA181C /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		E404BDCD226CAB5000CA181C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E404BDD0226CAB5000CA181C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E404BDD2226CAB5000CA181C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E404BDDC226CAC2200CA181C /* Regisrtation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regisrtation.swift; sourceTree = "<group>"; };
+		E404BDDE226CB57C00CA181C /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
+		E404BDE0226CD65100CA181C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +44,7 @@
 		E404BDBA226CAB4D00CA181C = {
 			isa = PBXGroup;
 			children = (
+				E404BDE0226CD65100CA181C /* Default-568h@2x.png */,
 				E404BDC5226CAB4D00CA181C /* Hotel Manzana */,
 				E404BDC4226CAB4D00CA181C /* Products */,
 			);
@@ -54,14 +61,48 @@
 		E404BDC5226CAB4D00CA181C /* Hotel Manzana */ = {
 			isa = PBXGroup;
 			children = (
-				E404BDC6226CAB4D00CA181C /* AppDelegate.swift */,
+				E404BDD8226CABC200CA181C /* Supporting Files */,
 				E404BDC8226CAB4D00CA181C /* ViewController.swift */,
-				E404BDCA226CAB4D00CA181C /* Main.storyboard */,
+				E404BDDB226CABF100CA181C /* Model */,
+				E404BDDA226CABE700CA181C /* Controller */,
+				E404BDD9226CABDA00CA181C /* View */,
+			);
+			path = "Hotel Manzana";
+			sourceTree = "<group>";
+		};
+		E404BDD8226CABC200CA181C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E404BDC6226CAB4D00CA181C /* AppDelegate.swift */,
 				E404BDCD226CAB5000CA181C /* Assets.xcassets */,
 				E404BDCF226CAB5000CA181C /* LaunchScreen.storyboard */,
 				E404BDD2226CAB5000CA181C /* Info.plist */,
 			);
-			path = "Hotel Manzana";
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E404BDD9226CABDA00CA181C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E404BDCA226CAB4D00CA181C /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E404BDDA226CABE700CA181C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E404BDDB226CABF100CA181C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E404BDDC226CAC2200CA181C /* Regisrtation.swift */,
+				E404BDDE226CB57C00CA181C /* RoomType.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E404BDD1226CAB5000CA181C /* LaunchScreen.storyboard in Resources */,
+				E404BDE1226CD65200CA181C /* Default-568h@2x.png in Resources */,
 				E404BDCE226CAB5000CA181C /* Assets.xcassets in Resources */,
 				E404BDCC226CAB4D00CA181C /* Main.storyboard in Resources */,
 			);
@@ -135,8 +177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E404BDDF226CB57C00CA181C /* RoomType.swift in Sources */,
 				E404BDC9226CAB4D00CA181C /* ViewController.swift in Sources */,
 				E404BDC7226CAB4D00CA181C /* AppDelegate.swift in Sources */,
+				E404BDDD226CAC2200CA181C /* Regisrtation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +328,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5MS39QS696;
-				INFOPLIST_FILE = "Hotel Manzana/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Hotel Manzana/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5MS39QS696;
-				INFOPLIST_FILE = "Hotel Manzana/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Hotel Manzana/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
