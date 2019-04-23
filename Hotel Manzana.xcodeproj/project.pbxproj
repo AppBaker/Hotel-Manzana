@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		E404BDC7226CAB4D00CA181C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDC6226CAB4D00CA181C /* AppDelegate.swift */; };
-		E404BDC9226CAB4D00CA181C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDC8226CAB4D00CA181C /* ViewController.swift */; };
 		E404BDCC226CAB4D00CA181C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCA226CAB4D00CA181C /* Main.storyboard */; };
 		E404BDCE226CAB5000CA181C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCD226CAB5000CA181C /* Assets.xcassets */; };
 		E404BDD1226CAB5000CA181C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCF226CAB5000CA181C /* LaunchScreen.storyboard */; };
 		E404BDDD226CAC2200CA181C /* Regisrtation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDDC226CAC2200CA181C /* Regisrtation.swift */; };
 		E404BDDF226CB57C00CA181C /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDDE226CB57C00CA181C /* RoomType.swift */; };
 		E404BDE1226CD65200CA181C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E404BDE0226CD65100CA181C /* Default-568h@2x.png */; };
+		E46DB729226F217900837C92 /* AddRegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46DB728226F217900837C92 /* AddRegistrationTableViewController.swift */; };
+		E4E901AB226F6FC400D8E533 /* IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E901AA226F6FC400D8E533 /* IndexPath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E404BDC3226CAB4D00CA181C /* Hotel Manzana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hotel Manzana.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E404BDC6226CAB4D00CA181C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E404BDC8226CAB4D00CA181C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E404BDCB226CAB4D00CA181C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E404BDCD226CAB5000CA181C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E404BDD0226CAB5000CA181C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -28,6 +28,8 @@
 		E404BDDC226CAC2200CA181C /* Regisrtation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regisrtation.swift; sourceTree = "<group>"; };
 		E404BDDE226CB57C00CA181C /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
 		E404BDE0226CD65100CA181C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E46DB728226F217900837C92 /* AddRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRegistrationTableViewController.swift; sourceTree = "<group>"; };
+		E4E901AA226F6FC400D8E533 /* IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +63,8 @@
 		E404BDC5226CAB4D00CA181C /* Hotel Manzana */ = {
 			isa = PBXGroup;
 			children = (
+				E46DB72A226F6F5400837C92 /* Extensions */,
 				E404BDD8226CABC200CA181C /* Supporting Files */,
-				E404BDC8226CAB4D00CA181C /* ViewController.swift */,
 				E404BDDB226CABF100CA181C /* Model */,
 				E404BDDA226CABE700CA181C /* Controller */,
 				E404BDD9226CABDA00CA181C /* View */,
@@ -92,6 +94,7 @@
 		E404BDDA226CABE700CA181C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E46DB728226F217900837C92 /* AddRegistrationTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -103,6 +106,14 @@
 				E404BDDE226CB57C00CA181C /* RoomType.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E46DB72A226F6F5400837C92 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E4E901AA226F6FC400D8E533 /* IndexPath.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,8 +189,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E404BDDF226CB57C00CA181C /* RoomType.swift in Sources */,
-				E404BDC9226CAB4D00CA181C /* ViewController.swift in Sources */,
+				E46DB729226F217900837C92 /* AddRegistrationTableViewController.swift in Sources */,
 				E404BDC7226CAB4D00CA181C /* AppDelegate.swift in Sources */,
+				E4E901AB226F6FC400D8E533 /* IndexPath.swift in Sources */,
 				E404BDDD226CAC2200CA181C /* Regisrtation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
