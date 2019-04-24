@@ -24,6 +24,8 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet weak var numberOfChildrenLabel: UILabel!
     @IBOutlet weak var numberOfChildrenStepper: UIStepper!
     @IBOutlet weak var wifiSwitch: UISwitch!
+    @IBOutlet weak var wifiCostLabel: UILabel!
+    @IBOutlet weak var roomTypeLabel: UILabel!
     
     
     //MARK: - Properties
@@ -40,6 +42,17 @@ class AddRegistrationTableViewController: UITableViewController {
             checkOutDatePicker.isHidden = !isCheckOutDatePickerShown
         }
     }
+    
+    var numberOfDays: Double {
+        return checkOutDatePicker.date.timeIntervalSince(checkInDatePicker.date) / (60*60*24)
+    }
+    var roomType = RoomType(id: 2, name: "Good nomer", shortName: "GN", price: 100)
+    
+//    var roomType: RoomType? {
+//        didSet {
+//            roomTypeLabel.text = roomType?.name
+//        }
+//    }
     
     //MARK: - @IBActions
     @IBAction func datePickerValueChanged() {
@@ -61,10 +74,15 @@ class AddRegistrationTableViewController: UITableViewController {
         updateNumberOfGuests()
     }
     
+    @IBAction func wifiSwitchToggle(){
+        updateWiFiCost()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         updateUI()
+        print(#function, #line, numberOfDays)
     }
     //MARK: - Custom Methods
     func setupDateViews() {
@@ -86,6 +104,7 @@ class AddRegistrationTableViewController: UITableViewController {
         formatter.dateStyle = .medium
         checkInDateLabel.text = formatter.string(from:  checkInDatePicker.date)
         checkOutDateLabel.text = formatter.string(from: checkOutDatePicker.date)
+        updateWiFiCost()
     }
     
     func updateUI() {
@@ -95,6 +114,14 @@ class AddRegistrationTableViewController: UITableViewController {
     func updateNumberOfGuests() {
         numberOfAdultsLabel.text = "\(Int(numberOfAdultsStepper.value))"
         numberOfChildrenLabel.text = "\(Int(numberOfChildrenStepper.value))"
+    }
+    func updateWiFiCost() {
+        if wifiSwitch.isOn {
+            let wifiCost = 9.99 * numberOfDays
+            wifiCostLabel.text = "Wi-Fi cost: \(wifiCost.roundToCents())$"
+        } else {
+         wifiCostLabel.text = "Wi-Fi ( 9.99$ per day)"
+        }
     }
 }
 
@@ -138,5 +165,16 @@ extension AddRegistrationTableViewController {
         
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+}
+
+// MARK: - Navigation
+extension AddRegistrationTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RoomTypeSegue" {
+//            guard let roomType = roomType else { return }
+            let controller = segue.destination as! RoomTypeTableViewController
+            controller.choosenRoomType = roomType
+        }
     }
 }
