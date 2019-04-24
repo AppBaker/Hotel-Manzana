@@ -28,6 +28,7 @@
 		E404BDDC226CAC2200CA181C /* Regisrtation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regisrtation.swift; sourceTree = "<group>"; };
 		E404BDDE226CB57C00CA181C /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
 		E404BDE0226CD65100CA181C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E44B0B3722707475000E5A05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E46DB728226F217900837C92 /* AddRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRegistrationTableViewController.swift; sourceTree = "<group>"; };
 		E4E901AA226F6FC400D8E533 /* IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +47,7 @@
 		E404BDBA226CAB4D00CA181C = {
 			isa = PBXGroup;
 			children = (
+				E44B0B3722707475000E5A05 /* README.md */,
 				E404BDE0226CD65100CA181C /* Default-568h@2x.png */,
 				E404BDC5226CAB4D00CA181C /* Hotel Manzana */,
 				E404BDC4226CAB4D00CA181C /* Products */,
