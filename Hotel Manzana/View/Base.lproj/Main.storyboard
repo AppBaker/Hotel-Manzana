@@ -32,6 +32,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldIsReady" destination="iAO-JO-SgA" eventType="editingChanged" id="lnN-13-B0S"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -53,7 +56,10 @@
                                                     <rect key="frame" x="20" y="11" width="374" height="22"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                    <connections>
+                                                        <action selector="textFieldIsReady" destination="iAO-JO-SgA" eventType="editingChanged" id="4gA-cY-olp"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -76,6 +82,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldIsReady" destination="iAO-JO-SgA" eventType="editingChanged" id="qea-YG-ZpZ"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -352,9 +361,6 @@
                                                 <constraint firstItem="4zl-cg-wlq" firstAttribute="leading" secondItem="z6N-l7-YJl" secondAttribute="leadingMargin" id="rHP-tO-Vnx"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="3a1-Eh-0OA" kind="show" identifier="RoomTypeSegue" id="gAZ-Bi-9kL"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -368,6 +374,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lke-28-gEk">
                             <connections>
                                 <action selector="saveButtonTapped" destination="iAO-JO-SgA" id="Aic-Yo-sGM"/>
+                                <segue destination="eZR-4J-GAB" kind="unwind" identifier="UnwindToGuestList" unwindAction="unwindToGuestListWithSegue:" id="NrE-F3-3ng"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -384,16 +391,19 @@
                         <outlet property="numberOfChildrenLabel" destination="cdB-iB-7uD" id="HuR-Jd-uj4"/>
                         <outlet property="numberOfChildrenStepper" destination="py6-F5-cQs" id="wgU-fS-K2s"/>
                         <outlet property="roomTypeLabel" destination="4zl-cg-wlq" id="SR5-dJ-tS5"/>
+                        <outlet property="roomTypeSelectLabel" destination="kfP-jB-KGO" id="ft4-qe-IJD"/>
                         <outlet property="saveButton" destination="Lke-28-gEk" id="8An-Te-Ssz"/>
                         <outlet property="wifiCostLabel" destination="02W-6X-bQO" id="IEe-tE-yAK"/>
                         <outlet property="wifiSwitch" destination="ike-PR-9cU" id="Gai-v0-H8G"/>
+                        <segue destination="3a1-Eh-0OA" kind="show" identifier="RoomTypeSegue" id="AHL-Ft-qYH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ao6-RK-FiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eZR-4J-GAB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1043.4782608695652" y="135.9375"/>
         </scene>
-        <!--Room Type Table View Controller-->
+        <!--Title-->
         <scene sceneID="T8Y-OG-f6L">
             <objects>
                 <tableViewController id="3a1-Eh-0OA" customClass="RoomTypeTableViewController" customModule="Hotel_Manzana" customModuleProvider="target" sceneMemberID="viewController">
@@ -432,8 +442,16 @@
                             <outlet property="delegate" destination="3a1-Eh-0OA" id="5US-lN-dJq"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="n6d-zN-Vzc">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="E8k-xP-cKd">
+                            <connections>
+                                <segue destination="xuY-ik-lX3" kind="unwind" identifier="UnwindRoomTypeSegue" unwindAction="dismissToRegistrationWithSegue:" id="Ru7-t0-2ec"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbS-rR-MsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xuY-ik-lX3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1895.6521739130437" y="135.9375"/>
         </scene>
@@ -448,12 +466,47 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="iAO-JO-SgA" kind="relationship" relationship="rootViewController" id="mn9-qg-7eb"/>
+                        <segue destination="esO-Kj-Zna" kind="relationship" relationship="rootViewController" id="bbj-BC-wMg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xc7-mb-PeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="123" y="136"/>
+            <point key="canvasLocation" x="-772" y="136"/>
+        </scene>
+        <!--Guest List-->
+        <scene sceneID="KBI-Jm-4ra">
+            <objects>
+                <tableViewController id="esO-Kj-Zna" customClass="GuestsListTableViewController" customModule="Hotel_Manzana" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mIM-GO-JwX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3NM-f5-r9P">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3NM-f5-r9P" id="HlS-b6-Wpt">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="esO-Kj-Zna" id="uQA-Hz-k92"/>
+                            <outlet property="delegate" destination="esO-Kj-Zna" id="dGC-I1-fMt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Guest List" id="lnC-q2-kpE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="IqB-Am-JbC">
+                            <connections>
+                                <segue destination="iAO-JO-SgA" kind="show" id="RvB-zo-hhu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hEb-PW-0Mc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="126" y="136"/>
         </scene>
     </scenes>
 </document>

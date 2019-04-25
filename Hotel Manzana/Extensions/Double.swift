@@ -9,7 +9,10 @@
 import Foundation
 
 extension Double {
-    func roundToCents() -> Double {
-        return (self*100).rounded() / 100
+    func roundToCents() -> String {
+        if self.rounded() == self {
+            return String(Int(self))
+        }
+        return String((self*100).rounded() / 100)
     }
 }

@@ -26,9 +26,12 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet weak var wifiSwitch: UISwitch!
     @IBOutlet weak var wifiCostLabel: UILabel!
     @IBOutlet weak var roomTypeLabel: UILabel!
+    @IBOutlet weak var roomTypeSelectLabel: UILabel!
     
     
     //MARK: - Properties
+    var addRegistration: Registration?
+    
     let checkInDatePickerIndexPath = IndexPath(row: 1, section: 1)
     let checkOutDatePickerIndexPath = IndexPath(row: 3, section: 1)
     
@@ -46,13 +49,13 @@ class AddRegistrationTableViewController: UITableViewController {
     var numberOfDays: Double {
         return checkOutDatePicker.date.timeIntervalSince(checkInDatePicker.date) / (60*60*24)
     }
-    var roomType = RoomType(id: 2, name: "Good nomer", shortName: "GN", price: 100)
     
-//    var roomType: RoomType? {
-//        didSet {
-//            roomTypeLabel.text = roomType?.name
-//        }
-//    }
+    var roomType: RoomType? {
+        didSet {
+            roomTypeLabel.text = roomType?.name
+            roomTypeSelectLabel.text = "change"
+        }
+    }
     
     //MARK: - @IBActions
     @IBAction func datePickerValueChanged() {
@@ -60,14 +63,17 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped() {
-        let firstName = firstNameTextField.text ?? ""
-        let lastName = lastNameTextField.text ?? ""
-        let email = emailTextField.text ?? ""
-        let checkInDate = checkInDatePicker.date
-        let checkOutDate = checkOutDatePicker.date
-        let numberOfAdults = numberOfAdultsStepper.value
-        let numberOfChildren = numberOfChildrenStepper.value
-        let wifi = wifiSwitch .isOn
+        addRegistration?.firstName = firstNameTextField.text ?? ""
+        addRegistration?.lastNane = lastNameTextField.text ?? ""
+        addRegistration?.emailAdres = emailTextField.text ?? ""
+        addRegistration?.checkInDate = checkInDatePicker.date
+        addRegistration?.checkOutDate = checkOutDatePicker.date
+        addRegistration?.numberOfAdults = Int(numberOfAdultsStepper.value)
+        addRegistration?.numberOfChildren = Int(numberOfChildrenStepper.value)
+        addRegistration?.wifi = wifiSwitch.isOn
+        if let roomType = roomType {
+            addRegistration?.roomType = roomType
+        }
     }
     
     @IBAction func stepperValueChanged() {
@@ -82,7 +88,14 @@ class AddRegistrationTableViewController: UITableViewController {
         super.viewDidLoad()
         setupUI()
         updateUI()
-        print(#function, #line, numberOfDays)
+        saveButton.isEnabled = areFieldsReady()
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let roomType = roomType {
+            roomTypeLabel.text = roomType.name
+        }
     }
     //MARK: - Custom Methods
     func setupDateViews() {
@@ -95,6 +108,7 @@ class AddRegistrationTableViewController: UITableViewController {
     func setupUI(){
         setupDateViews()
         updateNumberOfGuests()
+        setupTextFields()
     }
     func updateDateViews(){
         checkOutDatePicker.minimumDate = checkInDatePicker.date.addingTimeInterval(60 * 60 * 24)
@@ -120,15 +134,39 @@ class AddRegistrationTableViewController: UITableViewController {
             let wifiCost = 9.99 * numberOfDays
             wifiCostLabel.text = "Wi-Fi cost: \(wifiCost.roundToCents())$"
         } else {
-         wifiCostLabel.text = "Wi-Fi ( 9.99$ per day)"
+            wifiCostLabel.text = "Wi-Fi ( 9.99$ per day)"
         }
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setupTextFields() {
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emailTextField.delegate = self
+    }
+    
+    func areFieldsReady() -> Bool {
+        return !firstNameTextField.isEmpty && !lastNameTextField.isEmpty && emailIsReady() && roomType != nil
+    }
+    
+    func emailIsReady() -> Bool{
+        if let email = emailTextField.text {
+            if email.contains("@") && email.contains(".") {
+                if email.distance(from: email.startIndex, to: email.lastIndex(of: "@")!) < email.distance(from: email.startIndex, to: email.lastIndex(of: ".")!) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
 
 // MARK: - Table View Data Source
 extension AddRegistrationTableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
+        
         let autoHeight = UITableView.automaticDimension
         
         switch indexPath {
@@ -158,7 +196,8 @@ extension AddRegistrationTableViewController {
         case checkOutDatePickerIndexPath.prevRow:
             isCheckOutDatePickerShown.toggle()
             isCheckInDatePickerShown = isCheckOutDatePickerShown ? false : isCheckInDatePickerShown
-            
+        case IndexPath(row: 0, section: 4):
+            performSegue(withIdentifier: "RoomTypeSegue", sender: self)
         default:
             return
         }
@@ -171,10 +210,27 @@ extension AddRegistrationTableViewController {
 // MARK: - Navigation
 extension AddRegistrationTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "RoomTypeSegue" {
-//            guard let roomType = roomType else { return }
-            let controller = segue.destination as! RoomTypeTableViewController
-            controller.choosenRoomType = roomType
-        }
+        guard segue.identifier == "RoomTypeSegue" else { return }
+        guard let controller = segue.destination as? RoomTypeTableViewController else { return }
+            controller.numberOfDays = numberOfDays
+            print(#function, #line, numberOfDays)
+            if let roomType = roomType {
+                controller.choosenRoomType = roomType
+            }
+    }
+    @IBAction func dismissToRegistration(segue: UIStoryboardSegue){
+        guard segue.identifier == "UnwindRoomTypeSegue" else { return }
+        guard let controller = segue.source as? RoomTypeTableViewController else { return }
+        roomType = controller.choosenRoomType
+    }
+}
+
+extension AddRegistrationTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+    @IBAction func textFieldIsReady() {
+        saveButton.isEnabled = areFieldsReady()
     }
 }

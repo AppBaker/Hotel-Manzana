@@ -10,6 +10,8 @@
 		0819E8DE22708B710068FA6A /* RoomTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819E8DD22708B710068FA6A /* RoomTypeTableViewController.swift */; };
 		0819E8E02270A71E0068FA6A /* RoomTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819E8DF2270A71E0068FA6A /* RoomTypeTableViewCell.swift */; };
 		0819E8E22270BCC00068FA6A /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819E8E12270BCC00068FA6A /* Double.swift */; };
+		08A79B1022719FD000AAC7A1 /* GuestsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A79B0F22719FD000AAC7A1 /* GuestsListTableViewController.swift */; };
+		08A79B122271AA9B00AAC7A1 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A79B112271AA9B00AAC7A1 /* TextField.swift */; };
 		E404BDC7226CAB4D00CA181C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BDC6226CAB4D00CA181C /* AppDelegate.swift */; };
 		E404BDCC226CAB4D00CA181C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCA226CAB4D00CA181C /* Main.storyboard */; };
 		E404BDCE226CAB5000CA181C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E404BDCD226CAB5000CA181C /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 		0819E8DD22708B710068FA6A /* RoomTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeTableViewController.swift; sourceTree = "<group>"; };
 		0819E8DF2270A71E0068FA6A /* RoomTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeTableViewCell.swift; sourceTree = "<group>"; };
 		0819E8E12270BCC00068FA6A /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		08A79B0F22719FD000AAC7A1 /* GuestsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsListTableViewController.swift; sourceTree = "<group>"; };
+		08A79B112271AA9B00AAC7A1 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		E404BDC3226CAB4D00CA181C /* Hotel Manzana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hotel Manzana.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E404BDC6226CAB4D00CA181C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E404BDCB226CAB4D00CA181C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			children = (
 				E46DB728226F217900837C92 /* AddRegistrationTableViewController.swift */,
 				0819E8DD22708B710068FA6A /* RoomTypeTableViewController.swift */,
+				08A79B0F22719FD000AAC7A1 /* GuestsListTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			children = (
 				E4E901AA226F6FC400D8E533 /* IndexPath.swift */,
 				0819E8E12270BCC00068FA6A /* Double.swift */,
+				08A79B112271AA9B00AAC7A1 /* TextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,9 +208,11 @@
 				E404BDDF226CB57C00CA181C /* RoomType.swift in Sources */,
 				E46DB729226F217900837C92 /* AddRegistrationTableViewController.swift in Sources */,
 				0819E8E22270BCC00068FA6A /* Double.swift in Sources */,
+				08A79B122271AA9B00AAC7A1 /* TextField.swift in Sources */,
 				E404BDC7226CAB4D00CA181C /* AppDelegate.swift in Sources */,
 				0819E8E02270A71E0068FA6A /* RoomTypeTableViewCell.swift in Sources */,
 				E4E901AB226F6FC400D8E533 /* IndexPath.swift in Sources */,
+				08A79B1022719FD000AAC7A1 /* GuestsListTableViewController.swift in Sources */,
 				0819E8DE22708B710068FA6A /* RoomTypeTableViewController.swift in Sources */,
 				E404BDDD226CAC2200CA181C /* Regisrtation.swift in Sources */,
 			);
@@ -355,6 +363,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5MS39QS696;
 				INFOPLIST_FILE = "$(SRCROOT)/Hotel Manzana/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -373,6 +382,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5MS39QS696;
 				INFOPLIST_FILE = "$(SRCROOT)/Hotel Manzana/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

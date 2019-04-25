@@ -12,6 +12,7 @@ class RoomTypeTableViewController: UITableViewController {
     
     let rooms = RoomType.all
     var choosenRoomType: RoomType?
+    var numberOfDays: Double?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +48,13 @@ class RoomTypeTableViewController: UITableViewController {
 // MARK: - Custom Methods
 extension RoomTypeTableViewController {
     func setupCell(_ cell: UITableViewCell, for room: RoomType){
+        if let numberOfDays = numberOfDays {
+            let fullCost = numberOfDays * room.price
+            cell.detailTextLabel?.text = "Total cost: \(fullCost.roundToCents())$"
+        } else {
+            cell.detailTextLabel?.text = "One day: \(room.price)$"
+        }
         cell.textLabel?.text = room.name
-        cell.detailTextLabel?.text = "\(room.price)$"
     }
 }
 
@@ -67,13 +73,13 @@ extension RoomTypeTableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         choosenRoomType = rooms[indexPath.row]
+        print(#line, #function, choosenRoomType?.name)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 // MARK: - Navigation
 extension RoomTypeTableViewController {
-
     
 }
 
