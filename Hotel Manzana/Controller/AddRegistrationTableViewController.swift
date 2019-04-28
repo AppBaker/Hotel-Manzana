@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SaveRegistrationProtocol {
+    func saveRegistration(registration: Registration)
+}
+
 class AddRegistrationTableViewController: UITableViewController {
     
     // MARK: - @IBOutlets
@@ -52,10 +56,14 @@ class AddRegistrationTableViewController: UITableViewController {
     
     var roomType: RoomType? {
         didSet {
+            if roomType != nil {
             roomTypeLabel.text = roomType?.name
             roomTypeSelectLabel.text = "change"
+            }
         }
     }
+    
+    var delegate: SaveRegistrationProtocol?
     
     //MARK: - @IBActions
     @IBAction func datePickerValueChanged() {
@@ -63,17 +71,21 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped() {
-        addRegistration?.firstName = firstNameTextField.text ?? ""
-        addRegistration?.lastNane = lastNameTextField.text ?? ""
-        addRegistration?.emailAdres = emailTextField.text ?? ""
-        addRegistration?.checkInDate = checkInDatePicker.date
-        addRegistration?.checkOutDate = checkOutDatePicker.date
-        addRegistration?.numberOfAdults = Int(numberOfAdultsStepper.value)
-        addRegistration?.numberOfChildren = Int(numberOfChildrenStepper.value)
-        addRegistration?.wifi = wifiSwitch.isOn
-        if let roomType = roomType {
-            addRegistration?.roomType = roomType
-        }
+        guard let roomType = roomType else { return }
+        
+        let registration = Registration(
+            firstName: firstNameTextField.text ?? "",
+            lastNane: lastNameTextField.text ?? "",
+            emailAdres: emailTextField.text ?? "",
+            checkInDate: checkInDatePicker.date,
+            checkOutDate: checkOutDatePicker.date,
+            numberOfAdults: Int(numberOfAdultsStepper.value),
+            numberOfChildren: Int(numberOfChildrenStepper.value),
+            roomType: roomType,
+            wifi: wifiSwitch.isOn
+        )
+        delegate?.saveRegistration(registration: registration)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func stepperValueChanged() {
@@ -81,7 +93,7 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     @IBAction func wifiSwitchToggle(){
-        updateWiFiCost()
+        updateWiFiAndTotalCost()
     }
     
     override func viewDidLoad() {
@@ -89,7 +101,7 @@ class AddRegistrationTableViewController: UITableViewController {
         setupUI()
         updateUI()
         saveButton.isEnabled = areFieldsReady()
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -118,7 +130,7 @@ class AddRegistrationTableViewController: UITableViewController {
         formatter.dateStyle = .medium
         checkInDateLabel.text = formatter.string(from:  checkInDatePicker.date)
         checkOutDateLabel.text = formatter.string(from: checkOutDatePicker.date)
-        updateWiFiCost()
+        updateWiFiAndTotalCost()
     }
     
     func updateUI() {
@@ -129,14 +141,7 @@ class AddRegistrationTableViewController: UITableViewController {
         numberOfAdultsLabel.text = "\(Int(numberOfAdultsStepper.value))"
         numberOfChildrenLabel.text = "\(Int(numberOfChildrenStepper.value))"
     }
-    func updateWiFiCost() {
-        if wifiSwitch.isOn {
-            let wifiCost = 9.99 * numberOfDays
-            wifiCostLabel.text = "Wi-Fi cost: \(wifiCost.roundToCents())$"
-        } else {
-            wifiCostLabel.text = "Wi-Fi ( 9.99$ per day)"
-        }
-    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -160,6 +165,19 @@ class AddRegistrationTableViewController: UITableViewController {
             }
         }
         return false
+    }
+    
+    func updateWiFiAndTotalCost(){
+        var wifiCost: Double = 0
+        if wifiSwitch.isOn {
+            wifiCost = 9.99 * numberOfDays
+            wifiCostLabel.text = "Wi-Fi cost: \(wifiCost.roundToCents())$"
+        } else {
+            wifiCostLabel.text = "Wi-Fi ( 9.99$ per day)"
+        }
+        guard let roomType = roomType else { return }
+        let roomCost = roomType.price * numberOfDays
+        title = "Total cost: \((roomCost + wifiCost).roundToCents())$"
     }
 }
 
@@ -196,8 +214,6 @@ extension AddRegistrationTableViewController {
         case checkOutDatePickerIndexPath.prevRow:
             isCheckOutDatePickerShown.toggle()
             isCheckInDatePickerShown = isCheckOutDatePickerShown ? false : isCheckInDatePickerShown
-        case IndexPath(row: 0, section: 4):
-            performSegue(withIdentifier: "RoomTypeSegue", sender: self)
         default:
             return
         }
@@ -212,16 +228,17 @@ extension AddRegistrationTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "RoomTypeSegue" else { return }
         guard let controller = segue.destination as? RoomTypeTableViewController else { return }
-            controller.numberOfDays = numberOfDays
-            print(#function, #line, numberOfDays)
-            if let roomType = roomType {
-                controller.choosenRoomType = roomType
-            }
+        controller.delegate = self
+        controller.numberOfDays = numberOfDays
+        if let roomType = roomType {
+            controller.choosenRoomType = roomType
+        }
     }
     @IBAction func dismissToRegistration(segue: UIStoryboardSegue){
         guard segue.identifier == "UnwindRoomTypeSegue" else { return }
         guard let controller = segue.source as? RoomTypeTableViewController else { return }
         roomType = controller.choosenRoomType
+        saveButton.isEnabled = areFieldsReady()
     }
 }
 
@@ -231,6 +248,25 @@ extension AddRegistrationTableViewController: UITextFieldDelegate {
         return true
     }
     @IBAction func textFieldIsReady() {
+        saveButton.isEnabled = areFieldsReady()
+    }
+}
+
+// MARK: - RoomTypeProtocol
+extension AddRegistrationTableViewController: RoomTypeProtocol {
+    func setRoomType(roomType: RoomType) {
+        self.roomType = roomType
+        updateWiFiAndTotalCost()
+        numberOfAdultsStepper.maximumValue = Double(roomType.numberOfRooms * 2)
+        numberOfChildrenStepper.maximumValue = Double(roomType.numberOfRooms * 2)
+        if numberOfAdultsStepper.value >= numberOfAdultsStepper.maximumValue {
+            numberOfAdultsStepper.value = numberOfAdultsStepper.maximumValue
+            numberOfAdultsLabel.text = "\(Int(numberOfAdultsStepper.maximumValue))"
+        }
+        if numberOfChildrenStepper.value >= numberOfChildrenStepper.maximumValue {
+            numberOfChildrenStepper.value = numberOfChildrenStepper.maximumValue
+            numberOfChildrenLabel.text = "\(Int(numberOfChildrenStepper.maximumValue))"
+        }
         saveButton.isEnabled = areFieldsReady()
     }
 }

@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol RoomTypeProtocol {
+    func setRoomType(roomType: RoomType)
+}
+
 class RoomTypeTableViewController: UITableViewController {
     
     let rooms = RoomType.all
     var choosenRoomType: RoomType?
     var numberOfDays: Double?
+    var delegate: RoomTypeProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +77,11 @@ extension RoomTypeTableViewController {
         } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
-        choosenRoomType = rooms[indexPath.row]
-        print(#line, #function, choosenRoomType?.name)
+        let roomType = rooms[indexPath.row]
+        choosenRoomType = roomType
+        delegate?.setRoomType(roomType: roomType)
         tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

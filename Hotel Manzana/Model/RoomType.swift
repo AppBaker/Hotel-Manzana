@@ -13,12 +13,13 @@ struct RoomType {
     var name: String
     var shortName: String
     var price: Double
+    var numberOfRooms: Int
     
     static var all: [RoomType] {
         return [
-        RoomType(id: 0, name: "Two Queens", shortName: "2Q", price: 179.34),
-        RoomType(id: 1, name: "One King", shortName: "K", price: 209.23),
-        RoomType(id: 2, name: "Penthouse Suite", shortName: "PHS", price: 309.17)
+            RoomType(id: 0, name: "Two Queens", shortName: "2Q", price: 179.34, numberOfRooms: 2),
+            RoomType(id: 1, name: "One King", shortName: "K", price: 209.23, numberOfRooms: 1),
+            RoomType(id: 2, name: "Penthouse Suite", shortName: "PHS", price: 309.17, numberOfRooms: 3)
         ]
     }
 }
